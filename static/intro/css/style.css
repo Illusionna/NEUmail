@@ -1,0 +1,436 @@
+/* 基础样式设置 */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../images/black.jpg');
+    background-size: cover;
+    overflow: hidden; /* 防止滚动条出现 */
+}
+
+.next{
+    margin-top: 10px;
+}
+
+#customModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 轻微调整背景色透明度 */
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#customModal .modal-content {
+    background: white;
+    padding: 40px; /* 调整内边距以适应内容 */
+    border-radius: .3rem; /* Bootstrap默认的圆角尺寸 */
+    position: relative;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15); /* Bootstrap风格的阴影 */
+    width: auto; /* 根据内容调整宽度 */
+    max-width: 700px; /* 最大宽度限制 */
+    text-align: center;
+}
+
+#customModalClose {
+    background-color: #007bff; /* Bootstrap的主题蓝色 */
+    color: white;
+    border: none;
+    padding: .375rem .75rem; /* Bootstrap按钮的内边距 */
+    border-radius: .25rem; /* 圆角 */
+    cursor: pointer; /* 显示为可点击的光标 */
+    pointer-events: auto; /* 确保按钮可点击 */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 20px; /* 保持距离内容的间距 */
+    transition: background-color 0.15s ease-in-out; /* 平滑过渡效果 */
+}
+
+#customModalClose:hover {
+    background-color: #0056b3; /* 鼠标悬停时的颜色更深 */
+}
+
+#customModalMessage {
+    font-size: 1rem; /* 调整字体大小为标准 */
+    color: #212529; /* Bootstrap的默认文本颜色 */
+    margin-bottom: 20px; /* 间距 */
+}
+
+
+
+
+/* 模态框容器样式调整 */
+.modal-container {
+    position: fixed; /* 改为fixed提高层级，确保覆盖整个视窗 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* 防止容器阻挡页面上的其他元素 */
+}
+
+/* 单个模态框样式调整 */
+.modal-page {
+    position: absolute; /* 使用absolute，让模态框在容器内自由定位 */
+    background-image: url('../images/logPlane.jpg');
+    background-size: cover;
+    width: 70%; /* 调整宽度为容器宽度的70%，更适合展示内容 */
+    max-width: 600px; /* 保持最大宽度限制，以适应不同屏幕尺寸 */
+    min-width: 300px; /* 保持最小宽度，避免内容过于紧凑 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 50px;
+    margin: auto; /* 通过auto实现在justify-content和align-items作用下的自动居中 */
+    display: none; /* 初始不显示 */
+    flex-direction: column; /* 方便内容布局 */
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-out;
+    overflow-y: auto; /* 超出内容时允许滚动 */
+    pointer-events: auto; /* 允许与模态框内的元素交互 */
+    
+    
+}
+
+/* 修改模态框内容的背景样式 */
+.modal-content {
+    display: flex;
+    background-color: transparent; /* 设置背景透明，以显示.modal-page的背景 */
+    border: none; /* 移除边框 */
+    flex-direction: column; /* 子元素垂直排列 */
+    justify-content: center; /* 子元素在容器中垂直居中 */
+    align-items: center; /* 子元素在容器中水平居中 */
+    width: 100%; /* 根据需要调整宽度 */
+    /* 其他样式保持不变 */
+    padding: 40px; /* 内边距，根据内容需要调整 */
+    box-shadow: none; /* 移除阴影，如果之前设置了的话 */
+    overflow: hidden; /* 防止滚动条出现 */
+}
+
+/* 动画效果 */
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOutLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+
+.modal-exit-active {
+    animation: slideOutLeft 0.5s forwards;
+}
+
+.modal-enter-active {
+    animation: slideInRight 0.5s forwards;
+    display: flex; /* 显示并应用flex布局 */
+}
+
+/* 特殊尺寸的模态框调整 */
+.modal-page.adjustable-size{
+    max-width: 80%; /* 提供更大的最大宽度 */
+    overflow-y: auto; /* 允许垂直滚动 */
+    min-height: 400px; /* 增加最小高度以适应更多内容 */
+    max-height: 100vh; /* 限制最大高度，基于视窗高度 */
+}
+
+#emailInput {
+    width: 60%;
+    margin: auto;
+    border: 5px solid #ccc; /* 示例：添加边框 */
+    border-radius: 4px; /* 示例：添加圆角 */
+    padding: 10px; /* 示例：添加内边距，使输入更加舒适 */
+    /* 添加其他需要的样式 */
+}
+
+.modal-content h2,
+
+.modal-content p {
+    margin-bottom: 10px; /* 适用于所有标题和段落 */
+}
+
+.custom-margin {
+    margin-bottom: 20px; /* 设置你想要的间距 */
+    font-size: 20px;
+}
+
+
+.modal-content img {
+    max-width: 100%;
+    height: auto; /* 确保图片比例正确 */
+}
+
+.video-container {
+    display: flex;
+    justify-content: space-around; /* 保持视频之间的间距 */
+    flex-wrap: wrap; /* 允许容器内元素换行，以适应不同屏幕尺寸 */
+    margin-bottom: 10px; /* 在视频容器之间添加一些间隔 */
+}
+
+.video-wrapper {
+    display: flex;
+    flex-direction: column; /* 设置视频和标题垂直布局 */
+    align-items: center; /* 确保标题和视频在其容器内居中对齐 */
+    margin-bottom: 20px; /* 在视频容器之间添加一些间隔 */
+}
+
+.video {
+    width: 240px; /* 视频宽度，可根据需要调整 */
+    transition: transform 0.5s ease; /* 平滑放大过渡效果 */
+    cursor: pointer; /* 鼠标悬停时显示手型指针 */
+    margin-top: 10px; /* 为标题和视频之间留出空间 */
+    margin: 0 40px; /* 在每个视频的左右两侧添加10px的间隔 */
+}
+
+
+.active-video {
+    transform: scale(1.6); /* 放大激活的视频 */
+}
+
+#passwordInput {
+    flex-basis: 190px; /* 输入框的基础宽度 */
+    height: 32px; /* 将输入框的高度设置为20px */
+    margin-left: 10px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    padding-top: 5px; /* 减少顶部内边距，使文本上移 */
+    padding-bottom: 9px; /* 可选，增加底部内边距，进一步推高文本位置 */
+}
+
+#protocolSelect, #protocolOutput,#passwordInput {
+    flex-grow: 0; /* 阻止宽度增长 */
+    flex-shrink: 0; /* 阻止宽度缩小 */
+}
+
+#protocolSelect {
+    height: 32px; /* 将输入框的高度设置为20px */
+    flex-basis: 90px; /* 协议选择框的基础宽度 */
+    margin-right: 40px;
+    margin-left: 10px;
+    padding-top: 2px; /* 减少顶部内边距，使文本上移 */
+    padding-bottom: 10px; /* 可选，增加底部内边距，进一步推高文本位置 */
+
+}
+
+#protocolOutput {
+    flex-basis: 190px; /* 服务器地址输入框的基础宽度 */
+    height: 32px; /* 将输入框的高度设置为20px */
+    margin-left: 10px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    padding-top: 5px; /* 减少顶部内边距，使文本上移 */
+    padding-bottom: 9px; /* 可选，增加底部内边距，进一步推高文本位置 */
+}
+
+.prev{
+    padding: 5px 5px; /* 减少内边距 */
+    font-size: 14px; /* 减小字体大小 */
+    /* 或者直接指定宽高 */
+    width: 80px; /* 按钮宽度 */
+}
+
+.btn-small {
+    padding: 5px 5px; /* 减少内边距 */
+    font-size: 14px; /* 减小字体大小 */
+    /* 或者直接指定宽高 */
+    width: 80px; /* 按钮宽度 */
+}
+
+/* 输入框和小问号图标的样式 */
+.input-row-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 设置行间距 */
+}
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-icon {
+    cursor: pointer;
+    margin-left: 5px; /* 输入框和图标间距 */
+    margin-right: 20px;
+    user-select: none; /* 防止选中问号文字 */
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    padding: 0; /* 移除默认填充 */
+    font-weight: bold; /* 加粗问号使其更明显 */
+}
+
+/* 输入框前的标签样式 */
+.input-label {
+    margin-right: 10px; /* 设置标签右边距 */
+}
+
+/* 调整模态框底部按钮的布局 */
+.modal-footer {
+    margin-top: -15px;
+    border-top: none; /* 或 border-top: 0; */
+    display: flex;
+    justify-content: center; /* 按钮靠右显示 */
+    gap: 10px; /* 设置按钮之间的间距 */
+}
+
+
+.info-icon .bi {
+    color: #17a2b8; /* 图标颜色 */
+    font-size: 16px; /* 图标大小 */
+}
+
+.info-icon {
+    position: relative;
+    cursor: pointer;
+    margin-left: 5px; /* 输入框和图标间距 */
+    margin-right: 20px;
+    user-select: none; /* 防止选中问号文字 */
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    word-break: break-word;
+}
+
+.tooltip-text::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+}
+
+.info-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* 调整输入框之间的垂直间距 */
+.input-group.mb-3 {
+    margin-bottom: 30px; /* 增加至你希望的间距大小 */
+}
+
+/* 第四个模态框的自定义长宽 */
+#additional-info {
+    width: 100%; /* 调整模态框的宽度 */
+    max-width: 800px; /* 设置模态框的最大宽度 */
+    min-width: 400px; /* 设置模态框的最小宽度 */
+    height: auto; /* 高度自适应内容 */
+    max-height: 90vh; /* 设置模态框的最大高度，vh单位基于视窗高度 */
+    overflow-y: auto; /* 如果内容超过最大高度，允许垂直滚动 */
+}
+
+#emailAttachmentPath,#emailAttachmentPath,
+#attachmentOverwrite,#timezoneSelect,
+#attachmentSaveMode,#topEmailCount,
+#startTime, #endTime,#filterEmail,
+#filterNickname,#filterSubject
+{
+    flex-grow: 0; /* 阻止宽度增长 */
+    flex-shrink: 0; /* 阻止宽度缩小 */
+}
+
+/* 调整邮件附件保存路径的输入框大小 */
+#emailAttachmentPath {
+    width: 420px; /* 或根据需求设置具体的px值 */
+    height: 32px; 
+}
+
+/* 调整附件是否覆盖的选择框大小 */
+#attachmentOverwrite {
+    width: 90px; /* 或根据需求设置具体的px值 */
+    height: 32px; 
+    padding-top: 3px; /* 减少顶部内边距，使文本上移 */
+}
+
+/* 调整时区选择的选择框大小 */
+#timezoneSelect {
+    width: 103px; /* 或根据需求设置具体的px值 */
+    height: 32px;
+    padding-top: 3px; /* 减少顶部内边距，使文本上移 */
+    padding-bottom: 3px; /* 可选，增加底部内边距，进一步推高文本位置 */ 
+}
+
+/* 调整附件保存模式的选择框大小 */
+#attachmentSaveMode {
+    width: 198px; /* 或根据需求设置具体的px值 */
+    height: 32px; 
+    padding-top: 5px; /* 减少顶部内边距，使文本上移 */
+    padding-bottom: 5px; /* 可选，增加底部内边距，进一步推高文本位置 */
+}
+
+/* 调整顶部邮件数量的输入框大小 */
+#topEmailCount {
+    width: 105px; /* 或根据需求设置具体的px值 */
+    height: 32px; 
+}
+
+/* 调整附件收取起止时间的输入框大小 */
+#startTime, #endTime {
+    width: 198px; 
+    height: 32px; 
+}
+
+#filterEmail{
+    width: 450px;
+    height: 32px; 
+}
+#filterNickname{
+    width: 450px; 
+    height: 32px; 
+}
+#filterSubject{
+    width: 450px; 
+    height: 32px; 
+
+}
+
+.custom-margin-left {
+    margin-left: 74px; 
+}
+
+
+
