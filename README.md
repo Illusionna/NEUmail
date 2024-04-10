@@ -1,4 +1,4 @@
 # EmailAttachmentDownload
-A repository for utils.
+A repository for NEUmail.
 
 כל המקיים נפש אחת מעלין עליו כאילו קיים עולם מלא
