@@ -1,0 +1,6 @@
+1. Windows OS
+2. 建议 Python 3.10+
+3. 建议 mingw64 gcc 8.1.0, 优先编译 >>> gcc ./utils/scan.c -o ./utils/scan.exe
+4. 工作路径最好不要有空格符
+5. pip install flask
+6. pip install alive-progress
